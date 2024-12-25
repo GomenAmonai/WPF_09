@@ -1,0 +1,25 @@
+<Window x:Class="CityManagerApp.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:CityManagerApp.ViewModels"
+        mc:Ignorable="d"
+        Title="City Manager" Height="400" Width="600">
+    <Window.DataContext>
+        <viewModels:CityManagerViewModel />
+    </Window.DataContext>
+    <DockPanel>
+        <ToolBar DockPanel.Dock="Top">
+            <Button Content="Add City" Command="{Binding AddCityCommand}" Click="AddCity_Click"/>
+            <Button Content="Remove City" Command="{Binding RemoveCityCommand}" Click="RemoveCity_Click"/>
+        </ToolBar>
+        <DataGrid ItemsSource="{Binding Cities}" AutoGenerateColumns="False" CanUserAddRows="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                <DataGridComboBoxColumn Header="Country" SelectedItemBinding="{Binding Country}" ItemsSource="{Binding DataContext.Countries, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</Window>
